@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MarketingOdud — Claude Code для маркетологов</title>
+  <meta name="description" content="Практический курс по Claude Code для маркетологов. Агенты, контент-стратегия, аналитика данных, вайбкодинг — через реальные задачи в симуляторе маркетинговой команды Pulse." />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=108214180', 'ym');
+    ym(108214180, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/108214180" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+  <!-- /Yandex.Metrika counter -->
+  <meta property="og:title" content="Claude Code для маркетологов — курс MarketingOdud" />
+  <meta property="og:description" content="Практический курс по Claude Code для маркетологов. 13–15 часов реальной работы внутри симулятора маркетинговой команды Pulse." />
+  <meta property="og:image" content="https://DOMAIN_PLACEHOLDER/og-image.png" />
+  <meta property="og:url" content="https://DOMAIN_PLACEHOLDER" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://DOMAIN_PLACEHOLDER/og-image.png" />
+
+  <style>
+    /* ── Stats bar ── */
+    .stats-bar {
+      background: var(--accent);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      flex-wrap: wrap;
+    }
+    .stats-bar-inner {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .stat-item {
+      display: flex;
+      align-items: baseline;
+      gap: 0.4rem;
+      padding: 0 2rem;
+    }
+    .stat-num {
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: #fff;
+      line-height: 1;
+      font-family: 'Roboto Condensed', sans-serif;
+    }
+    .stat-label {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.8);
+      font-weight: 500;
+    }
+    .stat-divider {
+      width: 1px;
+      height: 2rem;
+      background: rgba(255,255,255,0.3);
+    }
+    @media (max-width: 600px) {
+      .stat-divider { display: none; }
+      .stat-item { padding: 0.3rem 1rem; }
+    }
+
+    /* ── Marquee ── */
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .marquee-wrap {
+      overflow: hidden;
+      padding: 1rem 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: #111;
+    }
+    .marquee-track {
+      display: flex;
+      white-space: nowrap;
+      animation: marquee 30s linear infinite;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      letter-spacing: 0.03em;
+    }
+    .marquee-wrap:hover .marquee-track { animation-play-state: paused; }
+    .marquee-item {
+      padding: 0 2rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 2rem;
+    }
+    .marquee-dot {
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: inline-block;
+    }
+
+    /* ── Before / After ── */
+    .ba-section {
+      background: #111;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .ba-grid {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 0;
+      margin-top: 3rem;
+    }
+    .ba-col {
+      padding: 0.5rem 2rem 0.5rem 0;
+    }
+    .ba-col.after { padding: 0.5rem 0 0.5rem 2rem; }
+    .ba-col-header {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      opacity: 0.5;
+    }
+    .ba-col.after .ba-col-header { color: var(--accent); opacity: 1; }
+    .ba-row {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .ba-item {
+      padding: 1rem 1.25rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: var(--text-muted);
+    }
+    .ba-item.bad { border-color: rgba(255,255,255,0.06); }
+    .ba-item.good {
+      border-color: rgba(196,120,74,0.35);
+      background: rgba(196,120,74,0.05);
+      color: var(--text-secondary);
+    }
+    .ba-item strong { display: block; font-size: 1rem; margin-bottom: 0.2rem; }
+    .ba-item.good strong { color: var(--text-primary); }
+    .ba-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 1.5rem;
+      color: var(--accent);
+      font-size: 1.5rem;
+      margin-top: 3.5rem;
+    }
+    @media (max-width: 700px) {
+      .ba-grid { grid-template-columns: 1fr; }
+      .ba-arrow { transform: rotate(90deg); margin: 0; }
+      .ba-col, .ba-col.after { padding: 0; }
+    }
+
+    /* ── Pain cards ── */
+    .pain-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      margin-top: 2.5rem;
+    }
+    .pain-card {
+      padding: 1.5rem;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: #111;
+      cursor: default;
+      transition: border-color 0.2s, transform 0.2s, background 0.2s;
+    }
+    .pain-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+      background: rgba(196,120,74,0.04);
+    }
+    .pain-role {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+    .pain-text {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+    .pain-text em {
+      font-style: normal;
+      color: var(--text-primary);
+    }
+
+    /* ── Accordion modules ── */
+    .accordion { margin-top: 2.5rem; }
+    .acc-item {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 0.75rem;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .acc-item.open { border-color: rgba(196,120,74,0.4); }
+    .acc-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 1.5rem;
+      cursor: pointer;
+      user-select: none;
+      gap: 1rem;
+    }
+    .acc-header:hover { background: rgba(255,255,255,0.02); }
+    .acc-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      flex: 1;
+    }
+    .acc-meta {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+    .acc-icon {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      transition: transform 0.25s, border-color 0.2s, color 0.2s;
+      flex-shrink: 0;
+    }
+    .acc-item.open .acc-icon {
+      transform: rotate(45deg);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .acc-body {
+      display: none;
+      padding: 0 1.5rem 1.25rem;
+    }
+    .acc-item.open .acc-body { display: block; }
+    .acc-module-list { display: flex; flex-direction: column; gap: 0.5rem; }
+    .acc-module-item {
+      display: flex;
+      gap: 0.75rem;
+      align-items: baseline;
+      padding: 0.6rem 0.75rem;
+      border-radius: 8px;
+      transition: background 0.15s;
+    }
+    .acc-module-item:hover { background: rgba(196,120,74,0.06); }
+    .acc-module-num {
+      font-size: 0.75rem;
+      color: var(--accent);
+      font-weight: 700;
+      font-family: 'IBM Plex Mono', monospace;
+      min-width: 2.5rem;
+    }
+    .acc-module-title {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+    .acc-module-item:hover .acc-module-title { color: var(--text-primary); }
+
+    /* ── Section alt bg ── */
+    .section-alt { background: #111; }
+
+    /* ── Big quote reviews ── */
+    .review-card { position: relative; }
+    .review-card::before {
+      content: '"';
+      position: absolute;
+      top: -0.5rem;
+      left: 1rem;
+      font-size: 5rem;
+      line-height: 1;
+      color: var(--accent);
+      opacity: 0.15;
+      font-family: Georgia, serif;
+      pointer-events: none;
+    }
+
+    /* ── Animations ── */
+    @keyframes cursor-blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    .t-cursor { animation: cursor-blink 1s step-end infinite; }
+    .terminal-body { position: relative; overflow: hidden; }
+    .terminal-body::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg, transparent, transparent 3px,
+        rgba(0,0,0,0.04) 3px, rgba(0,0,0,0.04) 4px
+      );
+      pointer-events: none;
+      border-radius: 0 0 10px 10px;
+      z-index: 10;
+    }
+    @keyframes terminal-glow {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(196,120,74,0); }
+      50% { box-shadow: 0 0 40px 6px rgba(196,120,74,0.1); }
+    }
+    @keyframes hero-in {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: none; }
+    }
+    .hero-badge  { animation: hero-in 0.5s ease both 0.1s; }
+    .hero h1     { animation: hero-in 0.5s ease both 0.2s; }
+    .hero > .hero-content > p { animation: hero-in 0.5s ease both 0.35s; }
+    .hero-ctas   { animation: hero-in 0.5s ease both 0.5s; }
+    .hero-meta   { animation: hero-in 0.5s ease both 0.6s; }
+    .hero-terminal { animation: hero-in 0.6s ease both 0.3s, terminal-glow 4s 1.5s ease-in-out infinite; }
+
+    .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.55s ease, transform 0.55s ease; }
+    .fade-up.visible { opacity: 1; transform: none; }
+
+    /* Hover effects */
+    .why-card { transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; }
+    .why-card:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: 0 10px 32px rgba(196,120,74,0.15); }
+    .review-card { transition: transform 0.2s, box-shadow 0.2s; }
+    .review-card:hover { transform: translateY(-5px); box-shadow: 0 16px 48px rgba(0,0,0,0.35); }
+    .req-card { transition: border-color 0.2s, transform 0.2s; }
+    .req-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .learn-list li { transition: color 0.15s; }
+    .learn-list li:hover { color: var(--text-primary); }
+    .learn-list li .check { transition: transform 0.15s; display: inline-block; }
+    .learn-list li:hover .check { transform: scale(1.3); }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <a href="index.html" class="nav-logo"><span class="logo-gt">&gt;</span> Marketing<span>Odud</span></a>
+    <div class="nav-links">
+      <a href="#modules" class="nav-link">Программа</a>
+      <a href="#pricing" class="nav-link">Стоимость</a>
+      <a href="start.html" class="nav-link">Инструкция</a>
+      <a href="https://t.me/tribute/app?startapp=sSYP" onclick="ym(108214180,'reachGoal','onclick')" class="btn-primary" target="_blank" rel="noopener">Купить курс</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">↳ Курс внутри Claude Code</div>
+      <h1>Claude Code<br>для <span>маркетологов</span></h1>
+      <p>
+        29 модулей внутри симулятора маркетинговой команды. Агенты, контент-стратегия,
+        аналитика и вайбкодинг — прямо в Claude Code, без видео и слайдов.
+      </p>
+      <div class="hero-ctas">
+        <a href="https://t.me/tribute/app?startapp=sSYP" onclick="ym(108214180,'reachGoal','onclick')" class="btn-primary btn-large" target="_blank" rel="noopener">
+          Купить за 7 990 ₽ — Early Bird
+        </a>
+        <a href="start.html" class="btn-secondary btn-large">Как установить →</a>
+      </div>
+      <div class="hero-meta">
+        <span>Без лекций и слайдов</span>
+        <span>13–15 часов практики</span>
+        <span>Доступ навсегда</span>
+      </div>
+    </div>
+    <div class="hero-terminal">
+      <div class="terminal-chrome">
+        <span class="t-dot t-dot-r"></span>
+        <span class="t-dot t-dot-y"></span>
+        <span class="t-dot t-dot-g"></span>
+      </div>
+      <div class="terminal-body">
+        <div class="t-px-title">CLAUDE<br>CODE</div>
+        <div class="t-px-sub">ДЛЯ МАРКЕТОЛОГОВ</div>
+        <div class="t-desc">
+          <div class="t-desc-line">
+            <span class="t-prompt">&gt;</span>
+            <span><span class="t-bold">13–15 часов</span> <span class="t-muted">реальной работы</span></span>
+          </div>
+          <div class="t-sub-line">внутри симулятора в самом <strong>Claude Code</strong> _</div>
+        </div>
+        <div class="t-divider"></div>
+        <div class="t-statusbar">
+          <span>· /digest · /agents · /gtm · /dashboard_</span>
+          <span class="t-cursor">| _</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats bar -->
+  <div class="stats-bar">
+    <div class="stats-bar-inner">
+      <div class="stat-item">
+        <span class="stat-num">29</span>
+        <span class="stat-label">модулей</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-num">6</span>
+        <span class="stat-label">блоков</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-num">13–15</span>
+        <span class="stat-label">часов практики</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-num">∞</span>
+        <span class="stat-label">доступ навсегда</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Marquee -->
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span class="marquee-item">агенты <span class="marquee-dot"></span> контент-стратегия <span class="marquee-dot"></span> аналитика данных <span class="marquee-dot"></span> GTM-план <span class="marquee-dot"></span> дашборд метрик <span class="marquee-dot"></span> web_fetch <span class="marquee-dot"></span> вайбкодинг <span class="marquee-dot"></span> email-цепочки <span class="marquee-dot"></span> конкурентная разведка <span class="marquee-dot"></span> командный CLAUDE.md <span class="marquee-dot"></span> параллельные агенты <span class="marquee-dot"></span> CAC · LTV · payback <span class="marquee-dot"></span> Notion · Slack · Sheets <span class="marquee-dot"></span></span>
+      <span class="marquee-item">агенты <span class="marquee-dot"></span> контент-стратегия <span class="marquee-dot"></span> аналитика данных <span class="marquee-dot"></span> GTM-план <span class="marquee-dot"></span> дашборд метрик <span class="marquee-dot"></span> web_fetch <span class="marquee-dot"></span> вайбкодинг <span class="marquee-dot"></span> email-цепочки <span class="marquee-dot"></span> конкурентная разведка <span class="marquee-dot"></span> командный CLAUDE.md <span class="marquee-dot"></span> параллельные агенты <span class="marquee-dot"></span> CAC · LTV · payback <span class="marquee-dot"></span> Notion · Slack · Sheets <span class="marquee-dot"></span></span>
+    </div>
+  </div>
+
+  <!-- Why different -->
+  <section>
+    <div class="container">
+      <div class="section-label">Почему этот курс</div>
+      <h2 class="section-title">Ты работаешь в симуляторе</h2>
+      <p class="section-subtitle">Курс разворачивается прямо в Claude Code. Ты — маркетолог команды Pulse, решаешь реальные задачи: контент, аналитика, GTM, вайбкодинг. Без лекций, без слайдов — только практика.</p>
+      <div class="why-grid">
+        <div class="why-card">
+          <div class="why-icon why-icon--term">&gt;_</div>
+          <h3>Практика с первой минуты</h3>
+          <p>Все модули — это задачи внутри Claude Code. Ты учишься делая реальную маркетинговую работу, а не смотришь на неё.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon why-icon--term">[x]</div>
+          <h3>Один нарратив — один продукт</h3>
+          <p>Весь курс про один стартап — Pulse. Агенты, контент, дашборды — в одном контексте. Как в настоящей работе.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon why-icon--term">//</div>
+          <h3>Шаблоны остаются с тобой</h3>
+          <p>После курса у тебя готовый набор агентов и команд под маркетинговые задачи. Применяешь с первого дня.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon why-icon--term">#</div>
+          <h3>Без кода — пишешь текстом</h3>
+          <p>Формулируешь задачу на русском — Claude Code делает. Никакого синтаксиса, никаких скриптов.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Before / After -->
+  <section class="ba-section">
+    <div class="container">
+      <div class="section-label">До и после</div>
+      <h2 class="section-title">Как меняется работа</h2>
+      <p class="section-subtitle">Те же задачи — другая скорость.</p>
+
+      <div class="ba-grid">
+        <div class="ba-col">
+          <div class="ba-col-header">Раньше</div>
+          <div class="ba-row">
+            <div class="ba-item bad">
+              <strong>3 часа</strong>
+              анализ трёх конкурентов вручную — скопировал, свёл в таблицу, написал
+            </div>
+            <div class="ba-item bad">
+              <strong>Полдня</strong>
+              контент-стратегия с нуля: исследование, структура, согласование
+            </div>
+            <div class="ba-item bad">
+              <strong>Ночь перед встречей</strong>
+              отчёт для CEO — собрал данные, написал, поправил формулировки
+            </div>
+            <div class="ba-item bad">
+              <strong>2–4 часа</strong>
+              CAC, LTV, payback в Excel — сводные таблицы, формулы, графики
+            </div>
+          </div>
+        </div>
+
+        <div class="ba-arrow">→</div>
+
+        <div class="ba-col after">
+          <div class="ba-col-header">Теперь</div>
+          <div class="ba-row">
+            <div class="ba-item good">
+              <strong>15 минут</strong>
+              три параллельных агента анализируют конкурентов одновременно
+            </div>
+            <div class="ba-item good">
+              <strong>Один сеанс</strong>
+              стратег пишет три подхода, команда делает мультиагентное ревью
+            </div>
+            <div class="ba-item good">
+              <strong>40 минут</strong>
+              данные + нарратив + рекомендации — готовый документ для CEO
+            </div>
+            <div class="ba-item good">
+              <strong>20 минут</strong>
+              дашборд с attribution по каналам из CSV без формул вручную
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- For whom: pain points -->
+  <section>
+    <div class="container">
+      <div class="section-label">Для кого</div>
+      <h2 class="section-title">Узнаёшь себя?</h2>
+      <p class="section-subtitle">Курс для тех, кто устал делать руками то, что можно делегировать.</p>
+
+      <div class="pain-grid">
+        <div class="pain-card">
+          <div class="pain-role">Маркетолог</div>
+          <div class="pain-text">Пишешь контент-стратегию <em>3 часа</em>, потом её переделывают. Хочешь выдавать черновик за 20 минут и итерировать быстро.</div>
+        </div>
+        <div class="pain-card">
+          <div class="pain-role">SMM-менеджер</div>
+          <div class="pain-text">Адаптируешь один пост под пять платформ <em>вручную</em>. Хочешь — написал один, получил все форматы сразу.</div>
+        </div>
+        <div class="pain-card">
+          <div class="pain-role">Performance-маркетолог</div>
+          <div class="pain-text">CAC, ROAS, LTV — <em>сводишь в Excel 2 часа</em>. Хочешь дашборд из CSV за 20 минут с attribution по каналам.</div>
+        </div>
+        <div class="pain-card">
+          <div class="pain-role">Email-маркетолог</div>
+          <div class="pain-text">Пишешь онбординговую цепочку под каждый сегмент <em>отдельно</em>. Хочешь — один промпт, три персоны, семь писем.</div>
+        </div>
+        <div class="pain-card">
+          <div class="pain-role">Контент-менеджер</div>
+          <div class="pain-text">Конкурентов смотришь руками — открываешь, копируешь, анализируешь. Хочешь <em>15 минут и готовый разбор</em>.</div>
+        </div>
+        <div class="pain-card">
+          <div class="pain-role">CMO / Маркетинг-лид</div>
+          <div class="pain-text">Хочешь <em>всю команду в едином голосе бренда</em> — один CLAUDE.md, и Дима с Аней работают как ты.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What you'll learn -->
+  <section class="section-alt">
+    <div class="container">
+      <div class="section-label">Чему научишься</div>
+      <h2 class="section-title">Навыки, которые остаются</h2>
+      <p class="section-subtitle">После курса Claude Code — не «ещё один AI», а твой рабочий инструмент каждый день.</p>
+      <ul class="learn-list">
+        <li><span class="check">✓</span> Настраивать AI-агентов под маркетинговые задачи: аналитик, копирайтер, SMM, стратег</li>
+        <li><span class="check">✓</span> Запускать параллельных агентов — анализ трёх конкурентов за 20 минут</li>
+        <li><span class="check">✓</span> Считать CAC, LTV, payback period и строить дашборды с attribution по каналам</li>
+        <li><span class="check">✓</span> Писать контент-стратегии, GTM-планы и отчёты для CEO за один сеанс</li>
+        <li><span class="check">✓</span> Анализировать воронку конкурентов через web_fetch — лендинг, pricing, онбординг</li>
+        <li><span class="check">✓</span> Строить email-цепочки и контент-паки для разных платформ и персон</li>
+        <li><span class="check">✓</span> Вайбкодить: создавать лендинги без разработчика и деплоить на живой URL</li>
+        <li><span class="check">✓</span> Настраивать командный CLAUDE.md — вся команда в едином голосе бренда</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Modules accordion -->
+  <section class="modules-section" id="modules">
+    <div class="container">
+      <div class="section-label">Программа</div>
+      <h2 class="section-title">6 блоков · 29 модулей</h2>
+      <p class="section-subtitle">Каждый модуль — реальная задача в симуляторе фитнес-стартапа Pulse. Нажми на блок чтобы раскрыть.</p>
+
+      <div class="accordion">
+
+        <div class="acc-item open">
+          <div class="acc-header" onclick="toggleAcc(this)">
+            <span class="acc-title">Блок 1 — Онбординг: инструменты</span>
+            <span class="acc-meta">10 модулей</span>
+            <span class="acc-icon">+</span>
+          </div>
+          <div class="acc-body">
+            <div class="acc-module-list">
+              <div class="acc-module-item"><span class="acc-module-num">1.1</span><span class="acc-module-title">Первый рабочий день в Pulse — знакомство с компанией и Claude Code</span></div>
+              <div class="acc-module-item"><span class="acc-module-num">1.2</span><span class="acc-module-title">Настройка рабочего пространства: файлы и терминал рядом</span></div>
+              <div class="acc-module-item"><span class="acc-module-num">1.3</span><span class="acc-module-title">Первый дайджест: @-ссылки на файлы, еженедельный отчёт к пятнице</span></div>
+              <div class="acc-module-item"><span class="acc-module-num">1.4</span><span class="acc-module-title">Параллельные агенты: анализ трёх конкурентов за один вечер</span></div>
+              <div class="acc-module-item"><span class="acc-module-num">1.5</span><span class="acc-module-title">AI-команда: аналитик, копирайтер, SMM и стратег работают вместе</span></div>
+              <div class="acc-module-item"><span class="acc-module-num">1.6</span><span class="acc-module-title">Память проекта: Claude помнит контекст Pulse между сессиями</span></div>
+              <div class="acc-module-item"><span class="acc-module-num">1.7</span><span class="acc-module-title">Управление Claude Code: навигация, настройки, лучшие практики</span></div>
+              <div class="acc-module-item"><span class="acc-module-num">1.8</span><span class="acc-module-title">Skills: создаёшь slash-команды под повторяющиеся задачи</span></div>
+              <div class="acc-module-item"><span class="acc-module-num">1.9</span><span class="acc-module-title">Конкурентная разведка: глубокий анализ FitStars за 15 минут до встречи</span></div>
+              <div class="acc-module-item"><span class="acc-module-num">1.10</span><span class="acc-module-title">Свой /skill за 15 минут: персональная команда под твою задачу</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <div class="acc-header" onclick="toggleAcc(this)">
+            <span class="acc-title">Блок 2 — Маркетинговый тулкит</span>
+            <span class="acc-meta">6 модулей</span>
+            <span class="acc-icon">+</span>
+          </div>
+          <div class="acc-body">
+            <div class="acc-module-list">
+              <div class="acc-module-item"><span class="acc-module-num">2.1</span><span class="acc-module-title">Контент-стратегия Q2: три подхода + мультиагентное ревью</span></div>
+              <div class="acc-module-item"><span class="acc-module-num">2.2</span><span class="acc-module-title">Анализ данных: воронки, когорты и attribution из CSV за минуты</span></div>
+              <div class="acc-module-item"><span class="acc-module-num">2.3</span><span class="acc-module-title">GTM-план запуска новой фичи: от инсайта до плана за один сеанс</span></div>
+              <div class="acc-module-item"><span class="acc-module-num">2.4</span><span class="acc-module-title">Дашборд метрик: CAC, LTV, payback period по каналам</span></div>
+              <div class="acc-module-item"><span class="acc-module-num">2.5</span><span class="acc-module-title">Анализ воронки конкурентов через web_fetch: лендинг, pricing, онбординг</span></div>
+              <div class="acc-module-item"><span class="acc-module-num">2.6</span><span class="acc-module-title">Отчёт для CEO: данные + нарратив + рекомендации</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <div class="acc-header" onclick="toggleAcc(this)">
+            <span class="acc-title">Блок 3 — Исследование и контент</span>
+            <span class="acc-meta">4 модуля</span>
+            <span class="acc-icon">+</span>
+          </div>
+          <div class="acc-body">
+            <div class="acc-module-list">
+              <div class="acc-module-item"><span class="acc-module-num">3.1</span><span class="acc-module-title">AI-касдев: синтетические интервью с персонами Pulse</span></div>
+              <div class="acc-module-item"><span class="acc-module-num">3.2</span><span class="acc-module-title">Email-цепочки онбординга: день 1, 3, 7 под каждую персону</span></div>
+              <div class="acc-module-item"><span class="acc-module-num">3.3</span><span class="acc-module-title">Контент-пак: посты, сторис, email — полный комплект за один сеанс</span></div>
+              <div class="acc-module-item"><span class="acc-module-num">3.4</span><span class="acc-module-title">Аналитика контента: что работает и почему</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <div class="acc-header" onclick="toggleAcc(this)">
+            <span class="acc-title">Блок 4 — Визуальный контент</span>
+            <span class="acc-meta">2 модуля</span>
+            <span class="acc-icon">+</span>
+          </div>
+          <div class="acc-body">
+            <div class="acc-module-list">
+              <div class="acc-module-item"><span class="acc-module-num">4.1</span><span class="acc-module-title">Визуальные промпты для соцсетей: стиль, персоны, форматы</span></div>
+              <div class="acc-module-item"><span class="acc-module-num">4.2</span><span class="acc-module-title">API для изображений: автоматическая генерация визуалов</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <div class="acc-header" onclick="toggleAcc(this)">
+            <span class="acc-title">Блок 5 — Вайбкодинг</span>
+            <span class="acc-meta">5 модулей</span>
+            <span class="acc-icon">+</span>
+          </div>
+          <div class="acc-body">
+            <div class="acc-module-list">
+              <div class="acc-module-item"><span class="acc-module-num">5.1</span><span class="acc-module-title">Идея: от маркетинговой задачи к концепции лендинга</span></div>
+              <div class="acc-module-item"><span class="acc-module-num">5.2</span><span class="acc-module-title">Архитектура: структура и стек без разработчика</span></div>
+              <div class="acc-module-item"><span class="acc-module-num">5.3</span><span class="acc-module-title">Сборка: Claude пишет код, ты итерируешь и правишь</span></div>
+              <div class="acc-module-item"><span class="acc-module-num">5.4</span><span class="acc-module-title">GitHub: версионирование и резервная копия</span></div>
+              <div class="acc-module-item"><span class="acc-module-num">5.5</span><span class="acc-module-title">Деплой: живой URL за 10 минут через Vercel</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <div class="acc-header" onclick="toggleAcc(this)">
+            <span class="acc-title">Блок 6 — Масштаб</span>
+            <span class="acc-meta">2 модуля</span>
+            <span class="acc-icon">+</span>
+          </div>
+          <div class="acc-body">
+            <div class="acc-module-list">
+              <div class="acc-module-item"><span class="acc-module-num">6.1</span><span class="acc-module-title">MCP: подключаешь Claude к Notion, Slack, Google Sheets</span></div>
+              <div class="acc-module-item"><span class="acc-module-num">6.2</span><span class="acc-module-title">Командный CLAUDE.md — единый голос бренда для всей команды</span></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Requirements -->
+  <section class="section-alt">
+    <div class="container">
+      <div class="section-label">Что нужно</div>
+      <h2 class="section-title">Требования</h2>
+      <p class="section-subtitle">Минимум технического. Всё остальное объясняем в первом модуле.</p>
+      <div class="req-grid">
+        <div class="req-card">
+          <div class="req-name">Подписка Claude Pro или Max</div>
+          <div class="req-detail">От $20/мес. Зарегистрироваться на <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a>. Бесплатный тариф не поддерживается.</div>
+        </div>
+        <div class="req-card">
+          <div class="req-name">Node.js 18+ <span style="font-weight:400; opacity:0.6">(опционально)</span></div>
+          <div class="req-detail">Нужен только при установке через терминал. Десктопное приложение Claude — без него.</div>
+        </div>
+        <div class="req-card">
+          <div class="req-name">macOS или Windows 10+</div>
+          <div class="req-detail">Инструкции есть для обеих платформ. Linux тоже подходит.</div>
+        </div>
+        <div class="req-card">
+          <div class="req-name">Опыт в маркетинге</div>
+          <div class="req-detail">Базовое понимание маркетинговых задач. Программирование не нужно — совсем.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviews -->
+  <section class="reviews-section">
+    <div class="container">
+      <div class="section-label">Отзывы</div>
+      <h2 class="section-title">Что говорят студенты</h2>
+      <div class="reviews-grid">
+        <div class="review-card">
+          <div class="review-quote">«Закончила не отрываясь за 2 дня — использую терминал, генерирую картинки, оркестрирую агентами»</div>
+          <div class="review-full">Я уже молчу про автоматизацию репортов, контент-стратегий и дайджестов. Создала md файлы про свою компанию, скилы и настроила процессы! Это просто бомба и будущее эдтеха! Формат учись сразу на рабочих кейсах безумный!</div>
+          <div class="review-author">Елена Белык · PMM, Booking</div>
+        </div>
+        <div class="review-card">
+          <div class="review-quote">«Концентрат must-have инструментов для маркетолога, без воды и лишнего хайпа»</div>
+          <div class="review-full">Отлично заходит, чтобы быстро онбордить команду в ИИ и выровнять скиллсет. После курса есть уверенность, что у всех закрыт базовый набор инструментов. Командный CLAUDE.md сразу применили — теперь все пишут в одном голосе бренда.</div>
+          <div class="review-author">Игнат Зайончковский · CPO, bothelp.io</div>
+        </div>
+        <div class="review-card">
+          <div class="review-quote">«Долго откладывал практику с агентами — здесь наконец поработал руками»</div>
+          <div class="review-full">Сначала было непонятно что делать, но в какой-то момент приходит понимание и процесс начинает приносить удовольствие. Дашборд метрик и анализ воронки конкурентов — вещи которые раньше занимали день, теперь делаю за час.</div>
+          <div class="review-author">Кирилл Якунин · Маркетолог, Kadrout</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section class="pricing-section" id="pricing">
+    <div class="container" style="text-align: center;">
+      <div class="section-label">Стоимость</div>
+      <h2 class="section-title">Один платёж — постоянный доступ</h2>
+      <div class="price-card">
+        <div class="price-early-bird">🔥 Early Bird</div>
+        <div class="price-label">Полный курс</div>
+        <div class="price-original">10 990 ₽</div>
+        <div class="price-amount">7 990 ₽</div>
+        <div class="price-note">Единоразово · доступ навсегда · цена вырастет</div>
+        <ul class="price-includes">
+          <li><span class="check">✓</span> 6 блоков, 29 модулей и практических заданий</li>
+          <li><span class="check">✓</span> Симулятор фитнес-стартапа Pulse</li>
+          <li><span class="check">✓</span> Готовые агенты и шаблоны для маркетолога</li>
+          <li><span class="check">✓</span> Инструкция по установке</li>
+          <li><span class="check">✓</span> Доступ к обновлениям курса</li>
+        </ul>
+        <a href="https://t.me/tribute/app?startapp=sSYP" onclick="ym(108214180,'reachGoal','onclick')" class="btn-primary" target="_blank" rel="noopener">
+          Купить через Telegram
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Author -->
+  <section>
+    <div class="container">
+      <div class="section-label">Автор</div>
+      <h2 class="section-title">Кто сделал курс</h2>
+      <div class="author-card">
+        <img src="img-author.jpg" alt="Евгения Одуд" class="author-avatar" style="object-fit: cover;" />
+        <div class="author-info">
+          <h3>Евгения Одуд</h3>
+          <p>
+            Продакт и маркетолог с опытом в продуктовых командах. Сделала курс, потому что сама прошла путь
+            от «зачем это нужно» до «не могу работать без Claude Code». Внутри — только то,
+            что реально используется в работе.
+          </p>
+          <a href="https://t.me/productodud" class="author-link" target="_blank" rel="noopener">
+            → t.me/productodud
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cross-link to PM course -->
+  <section>
+    <div class="container" style="text-align:center;">
+      <div class="section-label">Ещё один курс</div>
+      <h2 class="section-title">Claude Code для продактов</h2>
+      <p class="section-subtitle" style="max-width:560px; margin:0 auto 2rem;">PRD, питч-дек, касдев, вайбкодинг — тот же формат, но через задачи продакт-менеджера в симуляторе IT-компании HireFlow.</p>
+      <a href="https://odud.pro" class="btn-secondary btn-large" target="_blank" rel="noopener">Смотреть курс для продактов →</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 MarketingOdud · Автор: <a href="https://t.me/productodud" target="_blank" rel="noopener">Евгения Одуд</a> · <a href="start.html">Инструкция по установке</a> · <a href="oferta.html">Оферта</a> · <a href="privacy.html">Конфиденциальность</a></p>
+    <p style="margin-top:0.5rem; font-size:0.75rem; opacity:0.5;">Курс создан независимо от Anthropic. Claude и Claude Code — торговые марки Anthropic, PBC. MarketingOdud не является партнёром или представителем Anthropic.</p>
+  </footer>
+
+  <script>
+    // ── Accordion ──
+    function toggleAcc(header) {
+      const item = header.parentElement;
+      const isOpen = item.classList.contains('open');
+      // Close all
+      document.querySelectorAll('.acc-item.open').forEach(i => i.classList.remove('open'));
+      // Open clicked if it was closed
+      if (!isOpen) item.classList.add('open');
+    }
+
+    // ── Scroll fade-up ──
+    const fadeTargets = document.querySelectorAll(
+      '.why-card, .pain-card, .ba-item, .learn-list li, ' +
+      '.review-card, .req-card, .section-label, .section-title, ' +
+      '.section-subtitle, .price-card, .author-card, .acc-item, .stats-bar'
+    );
+    fadeTargets.forEach(el => el.classList.add('fade-up'));
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const siblings = Array.from(entry.target.parentElement.children)
+          .filter(c => c.classList.contains('fade-up'));
+        const idx = siblings.indexOf(entry.target);
+        entry.target.style.transitionDelay = Math.min(idx * 0.07, 0.35) + 's';
+        entry.target.classList.add('visible');
+        io.unobserve(entry.target);
+      });
+    }, { threshold: 0.07 });
+
+    fadeTargets.forEach(el => io.observe(el));
+
+    // ── Typewriter on terminal sub title ──
+    const subEl = document.querySelector('.t-px-sub');
+    if (subEl) {
+      const fullText = subEl.textContent;
+      subEl.textContent = '';
+      let i = 0;
+      const type = () => { if (i < fullText.length) { subEl.textContent += fullText[i++]; setTimeout(type, 45); } };
+      setTimeout(type, 700);
+    }
+
+    // ── Typewriter on statusbar ──
+    const statusEl = document.querySelector('.t-statusbar span:first-child');
+    if (statusEl) {
+      const fullText = statusEl.textContent;
+      statusEl.textContent = '';
+      let i = 0;
+      const type = () => { if (i < fullText.length) { statusEl.textContent += fullText[i++]; setTimeout(type, 55); } };
+      setTimeout(type, 1200);
+    }
+  </script>
+
+</body>
+</html>
