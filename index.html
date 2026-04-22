@@ -19,12 +19,18 @@
   </script>
   <noscript><div><img src="https://mc.yandex.ru/watch/108214180" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
   <!-- /Yandex.Metrika counter -->
-  <meta property="og:title" content="Claude Code для маркетологов — курс MarketingOdud" />
-  <meta property="og:description" content="Практический курс по Claude Code для маркетологов. 13–15 часов реальной работы внутри симулятора маркетинговой команды Pulse." />
+  <meta property="og:title" content="Claude Code для маркетологов" />
+  <meta property="og:description" content="13–15 часов реальной работы в симуляторе маркетинговой команды. Агенты, контент, аналитика, вайбкодинг — без видео и слайдов." />
   <meta property="og:image" content="https://odud.marketing/og-image.png" />
+  <meta property="og:image:width" content="1536" />
+  <meta property="og:image:height" content="1024" />
+  <meta property="og:image:alt" content="Claude Code для маркетологов — курс MarketingOdud" />
   <meta property="og:url" content="https://odud.marketing" />
   <meta property="og:type" content="website" />
+  <meta property="og:locale" content="ru_RU" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Claude Code для маркетологов" />
+  <meta name="twitter:description" content="13–15 часов реальной работы в симуляторе. Агенты, контент, аналитика, вайбкодинг — прямо в Claude Code." />
   <meta name="twitter:image" content="https://odud.marketing/og-image.png" />
 
   <script type="application/ld+json">
@@ -219,14 +225,14 @@
       padding: 1.5rem;
       border: 1px solid var(--border);
       border-radius: 14px;
-      background: #111;
+      background: var(--card-bg);
       cursor: default;
       transition: border-color 0.2s, transform 0.2s, background 0.2s;
     }
     .pain-card:hover {
       border-color: var(--accent);
       transform: translateY(-3px);
-      background: rgba(196,120,74,0.04);
+      background: var(--accent-light);
     }
     .pain-role {
       font-size: 0.75rem;
@@ -283,7 +289,9 @@
       border: 1.5px solid var(--border);
       display: flex; align-items: center; justify-content: center;
       color: var(--text-muted);
-      font-size: 1.1rem;
+      font-size: 1rem;
+      line-height: 1;
+      padding-bottom: 1px;
       transition: transform 0.25s, border-color 0.2s, color 0.2s;
       flex-shrink: 0;
     }
@@ -322,7 +330,7 @@
     .acc-module-item:hover .acc-module-title { color: var(--text-primary); }
 
     /* ── Section alt bg ── */
-    .section-alt { background: #111; }
+    .section-alt { background: var(--bg-secondary); }
 
     /* ── Big quote reviews ── */
     .review-card { position: relative; }
@@ -368,7 +376,7 @@
     }
     .hero-badge  { animation: hero-in 0.5s ease both 0.1s; }
     .hero h1     { animation: hero-in 0.5s ease both 0.2s; }
-    .hero > .hero-content > p { animation: hero-in 0.5s ease both 0.35s; }
+    .hero-content > p { animation: hero-in 0.5s ease both 0.35s; }
     .hero-ctas   { animation: hero-in 0.5s ease both 0.5s; }
     .hero-meta   { animation: hero-in 0.5s ease both 0.6s; }
     .hero-terminal { animation: hero-in 0.6s ease both 0.3s, terminal-glow 4s 1.5s ease-in-out infinite; }
@@ -380,13 +388,45 @@
     .why-card { transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s; }
     .why-card:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: 0 10px 32px rgba(196,120,74,0.15); }
     .review-card { transition: transform 0.2s, box-shadow 0.2s; }
-    .review-card:hover { transform: translateY(-5px); box-shadow: 0 16px 48px rgba(0,0,0,0.35); }
+    .review-card:hover { transform: translateY(-5px); box-shadow: 0 12px 36px rgba(0,0,0,0.12); }
     .req-card { transition: border-color 0.2s, transform 0.2s; }
     .req-card:hover { border-color: var(--accent); transform: translateY(-3px); }
     .learn-list li { transition: color 0.15s; }
     .learn-list li:hover { color: var(--text-primary); }
     .learn-list li .check { transition: transform 0.15s; display: inline-block; }
     .learn-list li:hover .check { transform: scale(1.3); }
+
+    /* ── Dark section overrides: Before/After ── */
+    .ba-section .section-title { color: #EAE0D8; }
+    .ba-section .section-subtitle { color: rgba(210, 195, 182, 0.8); }
+    .ba-section .ba-col-header { color: rgba(210, 195, 182, 0.65); }
+    .ba-section .ba-col.after .ba-col-header { color: var(--accent); opacity: 1; }
+    .ba-section .ba-item { color: rgba(210, 195, 182, 0.75); border-color: rgba(255,255,255,0.06); }
+    .ba-section .ba-item strong { color: #EAE0D8; }
+    .ba-section .ba-item.good { color: rgba(210, 195, 182, 0.85); }
+    .ba-section .ba-item.good strong { color: #F0E8E0; }
+
+    /* ── Dark section overrides: Modules accordion ── */
+    #modules .section-title { color: #EAE0D8; }
+    #modules .section-subtitle { color: rgba(210, 195, 182, 0.75); }
+    #modules .acc-item { border-color: rgba(255, 255, 255, 0.1); }
+    #modules .acc-item.open { border-color: rgba(196, 120, 74, 0.45); }
+    #modules .acc-title { color: #EAE0D8; }
+    #modules .acc-meta { color: rgba(210, 195, 182, 0.5); }
+    #modules .acc-icon { border-color: rgba(255,255,255,0.4); color: rgba(220,205,190,0.9); }
+    #modules .acc-module-title { color: rgba(210, 195, 182, 0.75); }
+    #modules .acc-module-item:hover .acc-module-title { color: #EAE0D8; }
+
+    /* ── Marquee on dark bg ── */
+    .marquee-track { color: rgba(210, 195, 182, 0.65); }
+
+    /* ── Dark section overrides: Requirements ── */
+    #requirements .section-title { color: #EAE0D8; }
+    #requirements .section-subtitle { color: rgba(210, 195, 182, 0.75); }
+    #requirements .req-card { background: #1C1C1C; border-left-color: var(--accent); }
+    #requirements .req-card .req-name { color: #EAE0D8; }
+    #requirements .req-card .req-detail { color: rgba(210, 195, 182, 0.7); }
+    #requirements .req-card a { color: var(--accent); }
   </style>
 </head>
 <body>
@@ -404,6 +444,7 @@
 
   <!-- Hero -->
   <section class="hero">
+    <div class="hero-inner">
     <div class="hero-content">
       <div class="hero-badge">↳ Курс внутри Claude Code</div>
       <h1>Claude Code<br>для <span>маркетологов</span></h1>
@@ -446,6 +487,7 @@
         </div>
       </div>
     </div>
+    </div><!-- /hero-inner -->
   </section>
 
   <!-- Stats bar -->
@@ -502,11 +544,6 @@
           <div class="why-icon why-icon--term">//</div>
           <h3>Шаблоны остаются с тобой</h3>
           <p>После курса у тебя готовый набор агентов и команд под маркетинговые задачи. Применяешь с первого дня.</p>
-        </div>
-        <div class="why-card">
-          <div class="why-icon why-icon--term">#</div>
-          <h3>Без кода — пишешь текстом</h3>
-          <p>Формулируешь задачу на русском — Claude Code делает. Никакого синтаксиса, никаких скриптов.</p>
         </div>
       </div>
     </div>
@@ -625,7 +662,97 @@
   </section>
 
   <!-- Modules accordion -->
-  <section class="modules-section" id="modules">
+  <!-- Requirements -->
+  <section id="requirements" style="background: #111;">
+    <div class="container">
+      <div class="section-label">Что нужно</div>
+      <h2 class="section-title">Требования</h2>
+      <p class="section-subtitle">Минимум технического. Всё остальное объясняем в первом модуле.</p>
+      <div class="req-grid">
+        <div class="req-card">
+          <div class="req-name">Подписка Claude Pro или Max</div>
+          <div class="req-detail">От $20/мес. Зарегистрироваться на <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a>. Бесплатный тариф не поддерживается.</div>
+        </div>
+        <div class="req-card">
+          <div class="req-name">Node.js 18+ <span style="font-weight:400; opacity:0.6">(опционально)</span></div>
+          <div class="req-detail">Нужен только при установке через терминал. Десктопное приложение Claude — без него.</div>
+        </div>
+        <div class="req-card">
+          <div class="req-name">macOS или Windows 10+</div>
+          <div class="req-detail">Инструкции есть для обеих платформ. Linux тоже подходит.</div>
+        </div>
+        <div class="req-card">
+          <div class="req-name">Опыт в маркетинге</div>
+          <div class="req-detail">Базовое понимание маркетинговых задач. Программирование не нужно — совсем.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviews -->
+  <section class="reviews-section">
+    <div class="container">
+      <div class="section-label">Отзывы</div>
+      <h2 class="section-title">Что говорят студенты</h2>
+      <div class="reviews-slider-wrap">
+        <div class="reviews-track" id="reviewsTrack">
+        <div class="review-card">
+          <div class="review-quote">«Ощущение, что я ускорилась на х20!»</div>
+          <div class="review-full">Курс очень понравился, сразу же проходишь его в среде Клода, просто вау! Материалы, которые остаются после курса — ещё во время прохождения добавила в свою рабочую рутину. Спасибо!</div>
+          <div class="review-author">Мила Плющ · ex-CMO Яндекс, автор канала Невыгоревшая СМО</div>
+        </div>
+        <div class="review-card">
+          <div class="review-quote">«Очень прикладной курс, вот хоть сразу бери и применяй!»</div>
+          <div class="review-full">И параллельно ещё и в профессии можно прокачаться и взять знаний с горкой. Продукт сам меня вёл, я не зависала на каждом задании. Агенты и скиллы — до курса я про них знала, но сама не использовала. Артефакты, которые остаются — отдельный большой плюс: фреймворки, шаблоны, промпты.</div>
+          <div class="review-author">Natalia Rogova · Co-founder, insightme.ru</div>
+        </div>
+        <div class="review-card">
+          <div class="review-quote">«Закончила не отрываясь за 2 дня — использую терминал, генерирую картинки, оркестрирую агентами»</div>
+          <div class="review-full">Я уже молчу про автоматизацию репортов, контент-стратегий и дайджестов. Создала md файлы про свою компанию, скилы и настроила процессы! Это просто бомба и будущее эдтеха! Формат учись сразу на рабочих кейсах безумный!</div>
+          <div class="review-author">Елена Белык · PMM, Booking</div>
+        </div>
+        <div class="review-card">
+          <div class="review-quote">«Поняла что такое агенты, перестала бояться этого слова»</div>
+          <div class="review-full">Смогла делать маркетинговые исследования для стартапа который пришёл на консалтинг в четыре руки. Никогда ещё так быстро не получалось собрать информацию, причём исчерпывающую. Настроила себе файлы about Me, научила Клода писать моими словами.</div>
+          <div class="review-author">Aleksandra Kochanova · Product Advisor, автор <a href="https://t.me/product_and_life" target="_blank" rel="noopener" style="color:var(--accent)">@product_and_life</a></div>
+        </div>
+        <div class="review-card">
+          <div class="review-quote">«Сейчас на втором модуле и уже в восторге 🔥»</div>
+          <div class="review-full">Очень крутой формат, которого пока нет на рынке, многое уже забрала в свою рабочую рутину. Спасибо 🙌</div>
+          <div class="review-author">Anastasiia Ivanchenko · Senior Product Manager</div>
+        </div>
+        <div class="review-card">
+          <div class="review-quote">«Концентрат must-have инструментов для маркетолога, без воды и лишнего хайпа»</div>
+          <div class="review-full">Отлично заходит, чтобы быстро онбордить команду в ИИ и выровнять скиллсет. После курса есть уверенность, что у всех закрыт базовый набор инструментов. Командный CLAUDE.md сразу применили — теперь все пишут в одном голосе бренда.</div>
+          <div class="review-author">Игнат Зайончковский · CPO, bothelp.io</div>
+        </div>
+        <div class="review-card">
+          <div class="review-quote">«Долго откладывал практику с агентами — здесь наконец поработал руками»</div>
+          <div class="review-full">Сначала было непонятно что делать, но в какой-то момент приходит понимание и процесс начинает приносить удовольствие. Дашборд метрик и анализ воронки конкурентов — вещи которые раньше занимали день, теперь делаю за час.</div>
+          <div class="review-author">Кирилл Якунин · Маркетолог, Kadrout</div>
+        </div>
+        <div class="review-card">
+          <div class="review-quote">«Прошла за выходные, сегодня уже почти все инструменты использовала на работе»</div>
+          <div class="review-full">Мне курс очень понравился, прошла за выходные, сегодня уже почти все инструменты использовала на работе. Спасибо!</div>
+          <div class="review-author">Natalia Slavina · Руководитель IT-департамента</div>
+        </div>
+        <div class="review-card">
+          <div class="review-quote">«Курс великолепнейший — это уже новый мир»</div>
+          <div class="review-full">Море благодарностей. Я ещё на модуле 1.6, но это уже новый мир. Когда вижу образ как это может работать, быстро могу переложить на свои задачи. Спасибо за это чудо 🙌</div>
+          <div class="review-author">Julia · CFO</div>
+        </div>
+        </div><!-- /reviews-track -->
+        <div class="reviews-nav">
+          <button class="rev-prev" onclick="slideReviews(-1)">←</button>
+          <div class="rev-dots" id="revDots"></div>
+          <button class="rev-next" onclick="slideReviews(1)">→</button>
+        </div>
+      </div><!-- /reviews-slider-wrap -->
+    </div>
+  </section>
+
+  <!-- Modules -->
+  <section class="modules-section" id="modules" style="background: #262626;">
     <div class="container">
       <div class="section-label">Программа</div>
       <h2 class="section-title">6 блоков · 29 модулей</h2>
@@ -738,58 +865,6 @@
     </div>
   </section>
 
-  <!-- Requirements -->
-  <section class="section-alt">
-    <div class="container">
-      <div class="section-label">Что нужно</div>
-      <h2 class="section-title">Требования</h2>
-      <p class="section-subtitle">Минимум технического. Всё остальное объясняем в первом модуле.</p>
-      <div class="req-grid">
-        <div class="req-card">
-          <div class="req-name">Подписка Claude Pro или Max</div>
-          <div class="req-detail">От $20/мес. Зарегистрироваться на <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a>. Бесплатный тариф не поддерживается.</div>
-        </div>
-        <div class="req-card">
-          <div class="req-name">Node.js 18+ <span style="font-weight:400; opacity:0.6">(опционально)</span></div>
-          <div class="req-detail">Нужен только при установке через терминал. Десктопное приложение Claude — без него.</div>
-        </div>
-        <div class="req-card">
-          <div class="req-name">macOS или Windows 10+</div>
-          <div class="req-detail">Инструкции есть для обеих платформ. Linux тоже подходит.</div>
-        </div>
-        <div class="req-card">
-          <div class="req-name">Опыт в маркетинге</div>
-          <div class="req-detail">Базовое понимание маркетинговых задач. Программирование не нужно — совсем.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Reviews -->
-  <section class="reviews-section">
-    <div class="container">
-      <div class="section-label">Отзывы</div>
-      <h2 class="section-title">Что говорят студенты</h2>
-      <div class="reviews-grid">
-        <div class="review-card">
-          <div class="review-quote">«Закончила не отрываясь за 2 дня — использую терминал, генерирую картинки, оркестрирую агентами»</div>
-          <div class="review-full">Я уже молчу про автоматизацию репортов, контент-стратегий и дайджестов. Создала md файлы про свою компанию, скилы и настроила процессы! Это просто бомба и будущее эдтеха! Формат учись сразу на рабочих кейсах безумный!</div>
-          <div class="review-author">Елена Белык · PMM, Booking</div>
-        </div>
-        <div class="review-card">
-          <div class="review-quote">«Концентрат must-have инструментов для маркетолога, без воды и лишнего хайпа»</div>
-          <div class="review-full">Отлично заходит, чтобы быстро онбордить команду в ИИ и выровнять скиллсет. После курса есть уверенность, что у всех закрыт базовый набор инструментов. Командный CLAUDE.md сразу применили — теперь все пишут в одном голосе бренда.</div>
-          <div class="review-author">Игнат Зайончковский · CPO, bothelp.io</div>
-        </div>
-        <div class="review-card">
-          <div class="review-quote">«Долго откладывал практику с агентами — здесь наконец поработал руками»</div>
-          <div class="review-full">Сначала было непонятно что делать, но в какой-то момент приходит понимание и процесс начинает приносить удовольствие. Дашборд метрик и анализ воронки конкурентов — вещи которые раньше занимали день, теперь делаю за час.</div>
-          <div class="review-author">Кирилл Якунин · Маркетолог, Kadrout</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- Pricing -->
   <section class="pricing-section" id="pricing">
     <div class="container" style="text-align: center;">
@@ -850,7 +925,7 @@
   <!-- Footer -->
   <footer>
     <p>© 2026 MarketingOdud · Автор: <a href="https://t.me/productodud" target="_blank" rel="noopener">Евгения Одуд</a> · <a href="start.html">Инструкция по установке</a> · <a href="oferta.html">Оферта</a> · <a href="privacy.html">Конфиденциальность</a></p>
-    <p style="margin-top:0.5rem; font-size:0.75rem; opacity:0.5;">Курс создан независимо от Anthropic. Claude и Claude Code — торговые марки Anthropic, PBC. MarketingOdud не является партнёром или представителем Anthropic.</p>
+    <p style="margin-top:0.5rem; font-size:0.75rem; opacity:0.5;">Курс создан независимо от Anthropic. Claude и Claude Code являются торговыми марками Anthropic, PBC. MarketingOdud не является партнёром или представителем Anthropic.</p>
   </footer>
 
   <script>
@@ -905,6 +980,45 @@
       const type = () => { if (i < fullText.length) { statusEl.textContent += fullText[i++]; setTimeout(type, 55); } };
       setTimeout(type, 1200);
     }
+
+    // ── Reviews Slider ──
+    (function() {
+      const track = document.getElementById('reviewsTrack');
+      if (!track) return;
+      const cards = Array.from(track.querySelectorAll('.review-card'));
+      const total = cards.length;
+      const visible = 3;
+      const pages = Math.ceil(total / visible);
+      let page = 0;
+
+      function getStep() {
+        const gap = parseFloat(getComputedStyle(track).columnGap) || 24;
+        return cards[0].offsetWidth + gap;
+      }
+
+      function update() {
+        track.style.transform = `translateX(-${page * visible * getStep()}px)`;
+        document.querySelectorAll('.rev-dot').forEach((d, i) => d.classList.toggle('active', i === page));
+        document.querySelector('.rev-prev').disabled = page === 0;
+        document.querySelector('.rev-next').disabled = page >= pages - 1;
+      }
+
+      window.slideReviews = function(dir) {
+        page = Math.max(0, Math.min(page + dir, pages - 1));
+        update();
+      };
+
+      const dotsEl = document.getElementById('revDots');
+      for (let i = 0; i < pages; i++) {
+        const d = document.createElement('button');
+        d.className = 'rev-dot' + (i === 0 ? ' active' : '');
+        d.onclick = () => { page = i; update(); };
+        dotsEl.appendChild(d);
+      }
+
+      update();
+      window.addEventListener('resize', update);
+    })();
   </script>
 
 </body>
