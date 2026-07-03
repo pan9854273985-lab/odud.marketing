@@ -140,12 +140,12 @@
     <div class="os-content active" data-os="mac">
 
       <div class="method-tabs">
-        <button class="method-tab active" data-method="desktop" onclick="switchMethod('mac','desktop')">
+        <button class="method-tab active" data-method="desktop" onclick="switchMethod(this)">
           <span class="method-tab-icon">🖥️</span>
           <span class="method-tab-label">Дефолтная</span>
           <span class="method-tab-desc">Десктопное приложение — терминал и Node.js не нужны</span>
         </button>
-        <button class="method-tab" data-method="terminal" onclick="switchMethod('mac','terminal')">
+        <button class="method-tab" data-method="terminal" onclick="switchMethod(this)">
           <span class="method-tab-icon">⚡</span>
           <span class="method-tab-label">Хардкор</span>
           <span class="method-tab-desc">Через терминал — Node.js, npm</span>
@@ -155,7 +155,7 @@
       <p class="method-hint" id="hint-mac-terminal"></p>
 
       <!-- Mac — Дефолтная -->
-      <div id="mac-desktop">
+      <div class="method-body" data-method="desktop">
         <div class="module-header">
           <span class="module-tag">Шаг 1</span>
           <span class="module-time">⏱ ~2 минуты</span>
@@ -194,7 +194,7 @@
       </div><!-- /mac-desktop -->
 
       <!-- Mac — Хардкор -->
-      <div id="mac-terminal" style="display:none">
+      <div class="method-body" data-method="terminal" style="display:none">
 
       <div class="module-header">
         <span class="module-tag">Шаг 1</span>
@@ -326,12 +326,12 @@
     <div class="os-content" data-os="windows">
 
       <div class="method-tabs">
-        <button class="method-tab active" data-method="desktop" onclick="switchMethod('windows','desktop')">
+        <button class="method-tab active" data-method="desktop" onclick="switchMethod(this)">
           <span class="method-tab-icon">🖥️</span>
           <span class="method-tab-label">Дефолтная</span>
           <span class="method-tab-desc">Десктопное приложение — терминал и Node.js не нужны</span>
         </button>
-        <button class="method-tab" data-method="terminal" onclick="switchMethod('windows','terminal')">
+        <button class="method-tab" data-method="terminal" onclick="switchMethod(this)">
           <span class="method-tab-icon">⚡</span>
           <span class="method-tab-label">Хардкор</span>
           <span class="method-tab-desc">Через терминал — Git Bash, Node.js, npm</span>
@@ -341,7 +341,7 @@
       <p class="method-hint" id="hint-windows-terminal"></p>
 
       <!-- Windows — Дефолтная -->
-      <div id="windows-desktop">
+      <div class="method-body" data-method="desktop">
         <div class="module-header">
           <span class="module-tag">Шаг 1</span>
           <span class="module-time">⏱ ~2 минуты</span>
@@ -381,7 +381,7 @@
       </div><!-- /windows-desktop -->
 
       <!-- Windows — Хардкор -->
-      <div id="windows-terminal" style="display:none">
+      <div class="method-body" data-method="terminal" style="display:none">
 
       <div class="warn-box">
         <strong>⚠️ Важно:</strong> Claude Code на Windows требует <strong>Git Bash</strong>. Все команды — только в Git Bash, не в PowerShell или CMD.
@@ -520,6 +520,68 @@
     <!-- ══════════════ MAC (Codex) ══════════════ -->
     <div class="os-content active" data-os="mac">
 
+      <div class="method-tabs">
+        <button class="method-tab active" data-method="desktop" onclick="switchMethod(this)">
+          <span class="method-tab-icon">🖥️</span>
+          <span class="method-tab-label">Дефолтная</span>
+          <span class="method-tab-desc">Десктопное приложение Codex — без терминала и Node.js</span>
+        </button>
+        <button class="method-tab" data-method="terminal" onclick="switchMethod(this)">
+          <span class="method-tab-icon">⚡</span>
+          <span class="method-tab-label">Хардкор</span>
+          <span class="method-tab-desc">Через терминал — npm или Homebrew</span>
+        </button>
+      </div>
+
+      <!-- Codex Mac — Дефолтная (десктоп) -->
+      <div class="method-body" data-method="desktop">
+        <div class="module-header">
+          <span class="module-tag">Шаг 1</span>
+          <span class="module-time">⏱ ~3 минуты</span>
+        </div>
+        <h2>Установи приложение Codex</h2>
+        <p>Скачай десктопное приложение с <a href="https://developers.openai.com/codex/app" target="_blank" rel="noopener">developers.openai.com/codex</a> — выбери сборку для <strong>Apple Silicon</strong> или <strong>Intel</strong>. Установи как обычное приложение.</p>
+        <p>Нужен <strong>ChatGPT-аккаунт</strong> (Plus, Pro, Business или Enterprise). Альтернатива — ключ OpenAI API.</p>
+
+        <div class="module-header" style="margin-top:2.5rem">
+          <span class="module-tag">Шаг 2</span>
+          <span class="module-time">⏱ ~2 минуты</span>
+        </div>
+        <h2>Войди в аккаунт</h2>
+        <p>Открой приложение Codex → выбери <strong>«Sign in with ChatGPT»</strong> → войди через браузер под своим ChatGPT-аккаунтом.</p>
+
+        <div class="module-header" style="margin-top:2.5rem">
+          <span class="module-tag">Шаг 3</span>
+          <span class="module-time">⏱ ~2 минуты</span>
+        </div>
+        <h2>Распакуй файлы курса</h2>
+        <p>Скачай <code>pulse-course-codex.zip</code> из закреплённого сообщения в Telegram-канале.</p>
+        <p>Дважды кликни по архиву — он распакуется автоматически. Перемести папку <code>pulse-course-codex</code> в «Документы».</p>
+
+        <div class="module-header" style="margin-top:2.5rem">
+          <span class="module-tag">Шаг 4</span>
+          <span class="module-time">⏱ ~1 минута</span>
+        </div>
+        <h2>Открой курс</h2>
+        <ol>
+          <li>В приложении Codex выбери папку <code>pulse-course-codex</code></li>
+          <li>Убедись что вверху выбран режим <strong>«Local»</strong> — Codex работает на твоём компьютере</li>
+          <li>В поле чата напиши <code>$go-welcome</code> и нажми Enter</li>
+        </ol>
+        <p>Курс начнётся автоматически.</p>
+
+        <div class="next-step">
+          <div class="next-step-text">
+            <h3>Готово — начинаем курс</h3>
+            <p>Codex проведёт тебя через онбординг — расскажет как устроен курс, как возвращаться и убедится что всё готово. Займёт 5 минут.</p>
+          </div>
+          <a href="https://t.me/tribute/app?startapp=sSYP" onclick="ym(108214180,'reachGoal','onclick')" class="btn-white" target="_blank" rel="noopener">Купить курс →</a>
+        </div>
+      </div><!-- /codex-mac-desktop -->
+
+      <!-- Codex Mac — Хардкор (терминал) -->
+      <div class="method-body" data-method="terminal" style="display:none">
+
       <div class="module-header">
         <span class="module-tag">Шаг 1</span>
         <span class="module-time">⏱ ~10 минут</span>
@@ -624,11 +686,75 @@
         <a href="https://t.me/tribute/app?startapp=sSYP" onclick="ym(108214180,'reachGoal','onclick')" class="btn-white" target="_blank" rel="noopener">Купить курс →</a>
       </div>
 
+      </div><!-- /codex-mac-terminal -->
+
     </div><!-- /codex-mac -->
 
 
     <!-- ══════════════ WINDOWS (Codex) ══════════════ -->
     <div class="os-content" data-os="windows">
+
+      <div class="method-tabs">
+        <button class="method-tab active" data-method="desktop" onclick="switchMethod(this)">
+          <span class="method-tab-icon">🖥️</span>
+          <span class="method-tab-label">Дефолтная</span>
+          <span class="method-tab-desc">Десктопное приложение Codex — без терминала и Node.js</span>
+        </button>
+        <button class="method-tab" data-method="terminal" onclick="switchMethod(this)">
+          <span class="method-tab-icon">⚡</span>
+          <span class="method-tab-label">Хардкор</span>
+          <span class="method-tab-desc">Через терминал — PowerShell или npm</span>
+        </button>
+      </div>
+
+      <!-- Codex Windows — Дефолтная (десктоп) -->
+      <div class="method-body" data-method="desktop">
+        <div class="module-header">
+          <span class="module-tag">Шаг 1</span>
+          <span class="module-time">⏱ ~3 минуты</span>
+        </div>
+        <h2>Установи приложение Codex</h2>
+        <p>Установи десктопное приложение Codex из <strong>Microsoft Store</strong> (или скачай с <a href="https://developers.openai.com/codex/app" target="_blank" rel="noopener">developers.openai.com/codex</a>).</p>
+        <p>Нужен <strong>ChatGPT-аккаунт</strong> (Plus, Pro, Business или Enterprise). Альтернатива — ключ OpenAI API.</p>
+
+        <div class="module-header" style="margin-top:2.5rem">
+          <span class="module-tag">Шаг 2</span>
+          <span class="module-time">⏱ ~2 минуты</span>
+        </div>
+        <h2>Войди в аккаунт</h2>
+        <p>Открой приложение Codex → выбери <strong>«Sign in with ChatGPT»</strong> → войди через браузер.</p>
+
+        <div class="module-header" style="margin-top:2.5rem">
+          <span class="module-tag">Шаг 3</span>
+          <span class="module-time">⏱ ~2 минуты</span>
+        </div>
+        <h2>Распакуй файлы курса</h2>
+        <p>Скачай <code>pulse-course-codex.zip</code> из Telegram-канала.</p>
+        <p>Правая кнопка по архиву → <strong>«Извлечь всё»</strong> → выбери «Документы» → «Извлечь».</p>
+
+        <div class="module-header" style="margin-top:2.5rem">
+          <span class="module-tag">Шаг 4</span>
+          <span class="module-time">⏱ ~1 минута</span>
+        </div>
+        <h2>Открой курс</h2>
+        <ol>
+          <li>В приложении Codex выбери папку <code>pulse-course-codex</code></li>
+          <li>Убедись что выбран режим <strong>«Local»</strong></li>
+          <li>В поле чата напиши <code>$go-welcome</code> и нажми Enter</li>
+        </ol>
+        <p>Курс начнётся автоматически.</p>
+
+        <div class="next-step">
+          <div class="next-step-text">
+            <h3>Готово — начинаем курс</h3>
+            <p>Codex проведёт тебя через онбординг — расскажет как устроен курс, как возвращаться и убедится что всё готово. Займёт 5 минут.</p>
+          </div>
+          <a href="https://t.me/tribute/app?startapp=sSYP" onclick="ym(108214180,'reachGoal','onclick')" class="btn-white" target="_blank" rel="noopener">Купить курс →</a>
+        </div>
+      </div><!-- /codex-windows-desktop -->
+
+      <!-- Codex Windows — Хардкор (терминал) -->
+      <div class="method-body" data-method="terminal" style="display:none">
 
       <div class="module-header">
         <span class="module-tag">Шаг 1</span>
@@ -733,6 +859,8 @@
         <a href="https://t.me/tribute/app?startapp=sSYP" onclick="ym(108214180,'reachGoal','onclick')" class="btn-white" target="_blank" rel="noopener">Купить курс →</a>
       </div>
 
+      </div><!-- /codex-windows-terminal -->
+
     </div><!-- /codex-windows -->
 
   </div><!-- /env-codex -->
@@ -760,12 +888,14 @@
       document.querySelectorAll('.os-content[data-os="' + os + '"]').forEach(function(c) { c.classList.add('active'); });
     }
 
-    function switchMethod(os, method) {
-      var scope = document.getElementById(os + '-desktop').parentElement;
+    function switchMethod(btn) {
+      var scope = btn.closest('.os-content');
+      var method = btn.getAttribute('data-method');
       scope.querySelectorAll('.method-tab').forEach(function(t) { t.classList.remove('active'); });
-      scope.querySelector('.method-tab[data-method="' + method + '"]').classList.add('active');
-      document.getElementById(os + '-desktop').style.display = method === 'desktop' ? 'block' : 'none';
-      document.getElementById(os + '-terminal').style.display = method === 'terminal' ? 'block' : 'none';
+      btn.classList.add('active');
+      scope.querySelectorAll('.method-body').forEach(function(b) {
+        b.style.display = b.getAttribute('data-method') === method ? 'block' : 'none';
+      });
     }
   </script>
 
