@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Инструкция по установке — MarketingOdud</title>
-  <meta name="description" content="Как установить Claude Code и начать курс для маркетологов. Пошаговая инструкция для Mac и Windows." />
+  <meta name="description" content="Как установить Claude Code или Codex и начать курс для маркетологов. Пошаговая инструкция для Mac и Windows." />
   <link rel="stylesheet" href="styles.css" />
   <!-- Yandex.Metrika counter -->
   <script type="text/javascript">
@@ -77,6 +77,21 @@
     .method-tab-desc { font-size: 0.8rem; color: var(--text-muted); font-weight: 400; line-height: 1.4; }
     .method-tab.active .method-tab-desc { color: var(--text-secondary); }
     .method-hint { display: none; }
+    /* Environment toggle: Claude Code / Codex */
+    .env-tabs { display: flex; gap: 0.75rem; margin: 1.5rem 0 0.25rem; }
+    .env-tab {
+      flex: 1; max-width: 220px;
+      padding: 0.9rem 1.25rem; border-radius: 10px;
+      border: 2px solid var(--border); background: transparent;
+      color: var(--text-secondary); font-family: inherit;
+      font-size: 1rem; font-weight: 700; cursor: pointer;
+      transition: all 0.15s; display: flex; align-items: center; gap: 0.5rem;
+    }
+    .env-tab:hover { border-color: var(--accent); color: var(--text-primary); }
+    .env-tab.active { border-color: var(--accent); background: var(--accent); color: #fff; }
+    .env-label { font-size: 0.85rem; color: var(--text-muted); margin: 1.5rem 0 0.35rem; font-weight: 600; }
+    .env-content { display: none; }
+    .env-content.active { display: block; }
   </style>
 </head>
 <body>
@@ -100,27 +115,37 @@
       <span>Начало работы</span>
     </div>
     <h1>Установка и запуск курса</h1>
-    <p>Выбери свою операционную систему — покажем точные шаги.</p>
+    <p>Выбери среду и операционную систему — покажем точные шаги. Курс одинаковый, отличается только инструмент.</p>
 
-    <div class="os-tabs" style="margin-top: 2rem;">
-      <button class="os-tab active" onclick="switchOS('mac')">🍎 Mac</button>
-      <button class="os-tab" onclick="switchOS('windows')">🪟 Windows</button>
+    <div class="env-label">Среда</div>
+    <div class="env-tabs">
+      <button class="env-tab active" data-env="claude" onclick="switchEnv('claude')">🟠 Claude Code</button>
+      <button class="env-tab" data-env="codex" onclick="switchEnv('codex')">🟢 Codex</button>
+    </div>
+
+    <div class="env-label">Система</div>
+    <div class="os-tabs">
+      <button class="os-tab active" data-os="mac" onclick="switchOS('mac')">🍎 Mac</button>
+      <button class="os-tab" data-os="windows" onclick="switchOS('windows')">🪟 Windows</button>
     </div>
   </div>
 
   <!-- Docs content -->
   <div class="docs-container">
 
+  <!-- ═══════════════════ CLAUDE CODE ═══════════════════ -->
+  <div id="env-claude" class="env-content active">
+
     <!-- ══════════════ MAC ══════════════ -->
-    <div id="os-mac" class="os-content active">
+    <div class="os-content active" data-os="mac">
 
       <div class="method-tabs">
-        <button class="method-tab active" onclick="switchMethod('mac','desktop')">
+        <button class="method-tab active" data-method="desktop" onclick="switchMethod('mac','desktop')">
           <span class="method-tab-icon">🖥️</span>
           <span class="method-tab-label">Дефолтная</span>
           <span class="method-tab-desc">Десктопное приложение — терминал и Node.js не нужны</span>
         </button>
-        <button class="method-tab" onclick="switchMethod('mac','terminal')">
+        <button class="method-tab" data-method="terminal" onclick="switchMethod('mac','terminal')">
           <span class="method-tab-icon">⚡</span>
           <span class="method-tab-label">Хардкор</span>
           <span class="method-tab-desc">Через терминал — Node.js, npm</span>
@@ -252,6 +277,10 @@
             <td>«Новый терминал в папке» не появляется в Finder</td>
             <td>Finder → Настройки → Службы → включи «Новый терминал в папке»</td>
           </tr>
+          <tr>
+            <td>🥚 Ничего не помогает</td>
+            <td>Открой <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a> и спроси прямо там: <em>«Я пытаюсь запустить Claude Code на Mac, вот что происходит: [опиши ошибку]. Что не так и как исправить?»</em> — Claude объяснит.</td>
+          </tr>
         </tbody>
       </table>
 
@@ -294,15 +323,15 @@
 
 
     <!-- ══════════════ WINDOWS ══════════════ -->
-    <div id="os-windows" class="os-content">
+    <div class="os-content" data-os="windows">
 
       <div class="method-tabs">
-        <button class="method-tab active" onclick="switchMethod('windows','desktop')">
+        <button class="method-tab active" data-method="desktop" onclick="switchMethod('windows','desktop')">
           <span class="method-tab-icon">🖥️</span>
           <span class="method-tab-label">Дефолтная</span>
           <span class="method-tab-desc">Десктопное приложение — терминал и Node.js не нужны</span>
         </button>
-        <button class="method-tab" onclick="switchMethod('windows','terminal')">
+        <button class="method-tab" data-method="terminal" onclick="switchMethod('windows','terminal')">
           <span class="method-tab-icon">⚡</span>
           <span class="method-tab-label">Хардкор</span>
           <span class="method-tab-desc">Через терминал — Git Bash, Node.js, npm</span>
@@ -438,8 +467,8 @@
             <td>Проверь что подписка активна на <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a>.</td>
           </tr>
           <tr>
-            <td>Ничего не помогает</td>
-            <td>Напиши со скриншотом: <a href="https://t.me/productodud" target="_blank" rel="noopener">t.me/productodud</a></td>
+            <td>🥚 Ничего не помогает</td>
+            <td>Открой <a href="https://claude.ai" target="_blank" rel="noopener">claude.ai</a> и спроси прямо там: <em>«Я пытаюсь запустить Claude Code на Windows, вот что происходит: [опиши ошибку]. Что не так и как исправить?»</em> — Claude объяснит.</td>
           </tr>
         </tbody>
       </table>
@@ -482,6 +511,232 @@
       </div><!-- /windows-terminal -->
     </div><!-- /os-windows -->
 
+  </div><!-- /env-claude -->
+
+
+  <!-- ═══════════════════ CODEX ═══════════════════ -->
+  <div id="env-codex" class="env-content">
+
+    <!-- ══════════════ MAC (Codex) ══════════════ -->
+    <div class="os-content active" data-os="mac">
+
+      <div class="module-header">
+        <span class="module-tag">Шаг 1</span>
+        <span class="module-time">⏱ ~10 минут</span>
+      </div>
+      <h2>Установка Codex</h2>
+
+      <h3>Что нужно</h3>
+      <table class="docs-table">
+        <thead><tr><th>Требование</th><th>Подробности</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>ChatGPT-аккаунт</strong></td>
+            <td>Plus, Pro, Business или Enterprise — для входа в Codex. Зарегистрироваться: <a href="https://chatgpt.com" target="_blank" rel="noopener">chatgpt.com</a>. Альтернатива — ключ OpenAI API.</td>
+          </tr>
+          <tr>
+            <td><strong>Node.js 18+</strong></td>
+            <td>Нужен для установки через npm. Бесплатно: <a href="https://nodejs.org" target="_blank" rel="noopener">nodejs.org</a>. Если ставишь через Homebrew — не нужен.</td>
+          </tr>
+          <tr>
+            <td><strong>macOS 11+</strong></td>
+            <td>Apple Silicon или Intel.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Как открыть Терминал</h3>
+      <ol>
+        <li>Нажми <code>Cmd + Space</code> — откроется Spotlight</li>
+        <li>Введи «Терминал» и нажми Enter</li>
+      </ol>
+
+      <h3>Шаг 1. Установи Codex</h3>
+      <pre><code>npm install -g @openai/codex</code></pre>
+      <p>Или через Homebrew (Node.js не нужен):</p>
+      <pre><code>brew install --cask codex</code></pre>
+
+      <h3>Шаг 2. Проверь установку</h3>
+      <pre><code>codex --version</code></pre>
+      <p>Если видишь номер версии — готово. Если <code>command not found</code> — закрой Терминал, открой новый.</p>
+
+      <h3>Шаг 3. Войди в аккаунт</h3>
+      <pre><code>codex</code></pre>
+      <ol>
+        <li>Выбери <strong>«Sign in with ChatGPT»</strong></li>
+        <li>Войди через браузер под своим ChatGPT-аккаунтом</li>
+      </ol>
+      <div class="info-box">Нет подписки ChatGPT? Войди по ключу OpenAI API — выбери «Sign in with API key» и вставь ключ с <a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener">platform.openai.com</a>.</div>
+
+      <h3>Шаг 4. Проверь что всё работает</h3>
+      <p>Внутри Codex набери приветствие — если ассистент отвечает, установка прошла успешно.</p>
+
+      <h3>Устранение проблем</h3>
+      <table class="docs-table">
+        <thead><tr><th>Ошибка</th><th>Что делать</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><code>Git is required for local sessions</code></td>
+            <td>Открой Terminal.app и запусти <code>xcode-select --install</code> — установятся инструменты Apple с Git. Потом перезапусти Codex.</td>
+          </tr>
+          <tr>
+            <td><code>command not found: codex</code></td>
+            <td>Закрой Терминал, открой новый. Если не помогает — проверь что глобальные npm-пакеты в <code>PATH</code>.</td>
+          </tr>
+          <tr>
+            <td>🥚 Ничего не помогает</td>
+            <td>Открой <a href="https://chatgpt.com" target="_blank" rel="noopener">chatgpt.com</a> и спроси прямо там: <em>«Я пытаюсь запустить Codex CLI на Mac, вот что происходит: [опиши ошибку]. Что не так и как исправить?»</em></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="module-header" style="margin-top:3rem">
+        <span class="module-tag">Шаг 2</span>
+        <span class="module-time">⏱ ~5 минут</span>
+      </div>
+      <h2>Скачать курс и начать</h2>
+
+      <h3>1. Распакуй файлы курса</h3>
+      <p>Скачай <code>pulse-course-codex.zip</code> из закреплённого сообщения в Telegram-канале.</p>
+      <p>Дважды кликни по архиву — он распакуется. Перемести папку <code>pulse-course-codex</code> в «Документы».</p>
+
+      <h3>2. Открой терминал в папке курса</h3>
+      <ol>
+        <li>Открой Finder → найди папку <code>pulse-course-codex</code></li>
+        <li>Правая кнопка мыши → <strong>«Новый терминал в папке»</strong></li>
+      </ol>
+
+      <h3>3. Запусти курс</h3>
+      <pre><code>codex</code></pre>
+      <p>После запуска введи:</p>
+      <pre><code>$go-welcome</code></pre>
+
+      <div class="faq-item">
+        <div class="faq-q">$go-welcome не распознаётся</div>
+        <div class="faq-a">Убедись что запустил <code>codex</code> именно из папки <code>pulse-course-codex</code>. Команда <code>ls</code> должна показывать файлы курса.</div>
+      </div>
+
+      <div class="next-step">
+        <div class="next-step-text">
+          <h3>Готово — начинаем курс</h3>
+          <p>Codex проведёт тебя через онбординг — расскажет как устроен курс, как возвращаться и убедится что всё готово. Займёт 5 минут.</p>
+        </div>
+        <a href="https://t.me/tribute/app?startapp=sSYP" onclick="ym(108214180,'reachGoal','onclick')" class="btn-white" target="_blank" rel="noopener">Купить курс →</a>
+      </div>
+
+    </div><!-- /codex-mac -->
+
+
+    <!-- ══════════════ WINDOWS (Codex) ══════════════ -->
+    <div class="os-content" data-os="windows">
+
+      <div class="module-header">
+        <span class="module-tag">Шаг 1</span>
+        <span class="module-time">⏱ ~15 минут</span>
+      </div>
+      <h2>Установка Codex</h2>
+
+      <h3>Что нужно</h3>
+      <table class="docs-table">
+        <thead><tr><th>Требование</th><th>Подробности</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>ChatGPT-аккаунт</strong></td>
+            <td>Plus, Pro, Business или Enterprise. Зарегистрироваться: <a href="https://chatgpt.com" target="_blank" rel="noopener">chatgpt.com</a>. Альтернатива — ключ OpenAI API.</td>
+          </tr>
+          <tr>
+            <td><strong>Node.js 18+</strong></td>
+            <td>Нужен только для установки через npm. Бесплатно: <a href="https://nodejs.org" target="_blank" rel="noopener">nodejs.org</a></td>
+          </tr>
+          <tr>
+            <td><strong>Git for Windows</strong></td>
+            <td>Codex использует Git для локальных сессий. <a href="https://git-scm.com/downloads/win" target="_blank" rel="noopener">git-scm.com/downloads/win</a></td>
+          </tr>
+          <tr>
+            <td><strong>Windows 10+</strong></td>
+            <td>64-bit</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Шаг 1. Установи Git for Windows</h3>
+      <p>Скачай с <a href="https://git-scm.com/downloads/win" target="_blank" rel="noopener">git-scm.com/downloads/win</a> → Next → Install.</p>
+
+      <h3>Шаг 2. Установи Codex</h3>
+      <p>Открой <strong>PowerShell</strong> (Пуск → набери «PowerShell») и запусти:</p>
+      <pre><code>irm https://chatgpt.com/codex/install.ps1 | iex</code></pre>
+      <p>Или через npm (нужен Node.js):</p>
+      <pre><code>npm install -g @openai/codex</code></pre>
+
+      <h3>Шаг 3. Проверь установку</h3>
+      <pre><code>codex --version</code></pre>
+      <p>Если видишь номер версии — готово. Если <code>command not found</code> — закрой PowerShell, открой новый.</p>
+
+      <h3>Шаг 4. Войди в аккаунт</h3>
+      <pre><code>codex</code></pre>
+      <ol>
+        <li>Выбери <strong>«Sign in with ChatGPT»</strong></li>
+        <li>Войди через браузер</li>
+      </ol>
+      <div class="info-box">Нет подписки ChatGPT? Войди по ключу OpenAI API — выбери «Sign in with API key» и вставь ключ с <a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener">platform.openai.com</a>.</div>
+
+      <h3>Устранение проблем</h3>
+      <table class="docs-table">
+        <thead><tr><th>Ошибка</th><th>Что делать</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><code>Git is required for local sessions</code></td>
+            <td>Установи <a href="https://git-scm.com/downloads/win" target="_blank" rel="noopener">Git for Windows</a> и перезапусти Codex.</td>
+          </tr>
+          <tr>
+            <td><code>command not found: codex</code></td>
+            <td>Закрой PowerShell, открой новый. Если не помогает — переустанови Codex.</td>
+          </tr>
+          <tr>
+            <td>🥚 Ничего не помогает</td>
+            <td>Открой <a href="https://chatgpt.com" target="_blank" rel="noopener">chatgpt.com</a> и спроси прямо там: <em>«Я пытаюсь запустить Codex CLI на Windows, вот что происходит: [опиши ошибку]. Что не так и как исправить?»</em></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="module-header" style="margin-top:3rem">
+        <span class="module-tag">Шаг 2</span>
+        <span class="module-time">⏱ ~5 минут</span>
+      </div>
+      <h2>Скачать курс и начать</h2>
+
+      <h3>1. Распакуй файлы курса</h3>
+      <p>Скачай <code>pulse-course-codex.zip</code> из Telegram-канала.</p>
+      <p>Правая кнопка по архиву → <strong>«Извлечь всё»</strong> → Документы → «Извлечь».</p>
+
+      <h3>2. Открой PowerShell в папке курса</h3>
+      <ol>
+        <li>Открой папку <code>pulse-course-codex</code> в Проводнике</li>
+        <li>Shift + правая кнопка на пустом месте → <strong>«Открыть окно PowerShell здесь»</strong></li>
+      </ol>
+      <div class="info-box">Нет такого пункта? Открой PowerShell из Пуска и введи: <code>cd ~/Documents/pulse-course-codex</code></div>
+
+      <h3>3. Запусти курс</h3>
+      <pre><code>codex</code></pre>
+      <pre><code>$go-welcome</code></pre>
+
+      <div class="faq-item">
+        <div class="faq-q">$go-welcome не распознаётся</div>
+        <div class="faq-a">Убедись что запустил <code>codex</code> из папки <code>pulse-course-codex</code>. Команда <code>ls</code> должна показывать файлы курса.</div>
+      </div>
+
+      <div class="next-step">
+        <div class="next-step-text">
+          <h3>Готово — начинаем курс</h3>
+          <p>Codex проведёт тебя через онбординг — расскажет как устроен курс, как возвращаться и убедится что всё готово. Займёт 5 минут.</p>
+        </div>
+        <a href="https://t.me/tribute/app?startapp=sSYP" onclick="ym(108214180,'reachGoal','onclick')" class="btn-white" target="_blank" rel="noopener">Купить курс →</a>
+      </div>
+
+    </div><!-- /codex-windows -->
+
+  </div><!-- /env-codex -->
+
   </div><!-- /docs-container -->
 
 
@@ -491,18 +746,24 @@
   </footer>
 
   <script>
+    function switchEnv(env) {
+      document.querySelectorAll('.env-tab').forEach(function(t) { t.classList.remove('active'); });
+      document.querySelector('.env-tab[data-env="' + env + '"]').classList.add('active');
+      document.querySelectorAll('.env-content').forEach(function(c) { c.classList.remove('active'); });
+      document.getElementById('env-' + env).classList.add('active');
+    }
+
     function switchOS(os) {
       document.querySelectorAll('.page-hero .os-tab').forEach(function(t) { t.classList.remove('active'); });
-      document.querySelector('.page-hero .os-tab[onclick="switchOS(\'' + os + '\')"]').classList.add('active');
+      document.querySelector('.page-hero .os-tab[data-os="' + os + '"]').classList.add('active');
       document.querySelectorAll('.os-content').forEach(function(c) { c.classList.remove('active'); });
-      document.getElementById('os-' + os).classList.add('active');
+      document.querySelectorAll('.os-content[data-os="' + os + '"]').forEach(function(c) { c.classList.add('active'); });
     }
 
     function switchMethod(os, method) {
-      document.querySelectorAll('#os-' + os + ' .method-tab').forEach(function(t) { t.classList.remove('active'); });
-      document.querySelector('#os-' + os + ' .method-tab[onclick="switchMethod(\'' + os + '\',\'' + method + '\')"]').classList.add('active');
-      document.getElementById('hint-' + os + '-desktop').style.display = method === 'desktop' ? '' : 'none';
-      document.getElementById('hint-' + os + '-terminal').style.display = method === 'terminal' ? '' : 'none';
+      var scope = document.getElementById(os + '-desktop').parentElement;
+      scope.querySelectorAll('.method-tab').forEach(function(t) { t.classList.remove('active'); });
+      scope.querySelector('.method-tab[data-method="' + method + '"]').classList.add('active');
       document.getElementById(os + '-desktop').style.display = method === 'desktop' ? 'block' : 'none';
       document.getElementById(os + '-terminal').style.display = method === 'terminal' ? 'block' : 'none';
     }

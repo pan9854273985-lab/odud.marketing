@@ -209,8 +209,8 @@ body {
 
 .t-px-title {
   font-family: 'Press Start 2P', monospace;
-  font-size: 2.5rem;
-  line-height: 1.35;
+  font-size: 1.7rem;
+  line-height: 1.4;
   margin-bottom: 0.6rem;
   background: linear-gradient(150deg, #E8943A 0%, #C4784A 55%, #A85530 100%);
   -webkit-background-clip: text;
@@ -1102,7 +1102,7 @@ p code, li code {
   }
 
   .t-px-title {
-    font-size: 1.6rem;
+    font-size: 1.15rem;
   }
 
   .t-px-sub {
