@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Инструкция по установке — MarketingOdud</title>
+  <title>Инструкция по установке — CC Code</title>
   <meta name="description" content="Как установить Claude Code или Codex и начать курс для маркетологов. Пошаговая инструкция для Mac и Windows." />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles-mews.css" />
   <!-- Yandex.Metrika counter -->
   <script type="text/javascript">
     (function(m,e,t,r,i,k,a){
@@ -18,87 +18,12 @@
   </script>
   <noscript><div><img src="https://mc.yandex.ru/watch/108214180" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
   <!-- /Yandex.Metrika counter -->
-  <style>
-    .os-tabs {
-      display: flex;
-      gap: 0.75rem;
-      margin: 2rem 0 0;
-    }
-    .os-tab {
-      flex: 1;
-      max-width: 200px;
-      padding: 0.9rem 1.5rem;
-      border-radius: 10px;
-      border: 2px solid var(--border);
-      background: transparent;
-      color: var(--text-secondary);
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.15s;
-      font-family: inherit;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    .os-tab:hover {
-      border-color: var(--accent);
-      color: var(--text-primary);
-    }
-    .os-tab.active {
-      border-color: var(--accent);
-      background: var(--accent);
-      color: #fff;
-    }
-    .os-content { display: none; }
-    .os-content.active { display: block; }
-    .warn-box {
-      background: rgba(196,120,74,0.12);
-      border: 1px solid var(--accent);
-      border-radius: 10px;
-      padding: 1rem 1.25rem;
-      margin: 1.5rem 0;
-      font-size: 0.95rem;
-      line-height: 1.6;
-    }
-    .warn-box strong { color: var(--accent); }
-    .method-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin: 1.75rem 0 1.5rem; }
-    .method-tab {
-      display: block; width: 100%;
-      padding: 1.25rem 1rem; border-radius: 12px;
-      border: 1.5px solid var(--border); background: transparent;
-      color: var(--text-secondary); font-family: inherit;
-      cursor: pointer; transition: all 0.15s; text-align: left;
-    }
-    .method-tab:hover { border-color: var(--accent); color: var(--text-primary); }
-    .method-tab.active { border-color: var(--accent); color: var(--text-primary); background: rgba(196,120,74,0.07); }
-    .method-tab-icon { font-size: 1.6rem; margin-bottom: 0.5rem; display: block; }
-    .method-tab-label { font-size: 1rem; font-weight: 700; display: block; margin-bottom: 0.35rem; }
-    .method-tab-desc { font-size: 0.8rem; color: var(--text-muted); font-weight: 400; line-height: 1.4; }
-    .method-tab.active .method-tab-desc { color: var(--text-secondary); }
-    .method-hint { display: none; }
-    /* Environment toggle: Claude Code / Codex */
-    .env-tabs { display: flex; gap: 0.75rem; margin: 1.5rem 0 0.25rem; }
-    .env-tab {
-      flex: 1; max-width: 220px;
-      padding: 0.9rem 1.25rem; border-radius: 10px;
-      border: 2px solid var(--border); background: transparent;
-      color: var(--text-secondary); font-family: inherit;
-      font-size: 1rem; font-weight: 700; cursor: pointer;
-      transition: all 0.15s; display: flex; align-items: center; gap: 0.5rem;
-    }
-    .env-tab:hover { border-color: var(--accent); color: var(--text-primary); }
-    .env-tab.active { border-color: var(--accent); background: var(--accent); color: #fff; }
-    .env-label { font-size: 0.85rem; color: var(--text-muted); margin: 1.5rem 0 0.35rem; font-weight: 600; }
-    .env-content { display: none; }
-    .env-content.active { display: block; }
-  </style>
 </head>
 <body>
 
   <!-- Navigation -->
   <nav class="nav">
-    <a href="index.html" class="nav-logo"><span class="logo-gt">&gt;</span> Marketing<span>Odud</span></a>
+    <a href="index.html" class="nav-logo"><span class="logo-mark">cc</span> CC Code</a>
     <div class="nav-links">
       <a href="index.html#modules" class="nav-link">Программа</a>
       <a href="index.html#pricing" class="nav-link">Стоимость</a>
@@ -110,7 +35,7 @@
   <!-- Page hero -->
   <div class="page-hero">
     <div class="breadcrumb">
-      <a href="index.html">MarketingOdud</a>
+      <a href="index.html">CC Code</a>
       <span>/</span>
       <span>Начало работы</span>
     </div>
@@ -127,6 +52,15 @@
     <div class="os-tabs">
       <button class="os-tab active" data-os="mac" onclick="switchOS('mac')">🍎 Mac</button>
       <button class="os-tab" data-os="windows" onclick="switchOS('windows')">🪟 Windows</button>
+    </div>
+  </div>
+
+  <!-- Global unpack note -->
+  <div style="max-width:820px;margin:0 auto;padding:0 24px;position:relative;z-index:1;">
+    <div class="warn-box">
+      <strong>📁 Важно про распаковку.</strong> Внутри папки курса есть <strong>скрытые папки на точку</strong> (<code>.claude</code> или <code>.codex</code>) — там лежат команды курса вроде <code>/go-welcome</code>. По умолчанию они не видны.<br><br>
+      • <strong>Перемещай и открывай папку целиком</strong> — не перекладывай файлы по одному, иначе скрытые папки потеряются и команды не запустятся.<br>
+      • Показать скрытое: <strong>Mac</strong> — в Finder нажми <code>Cmd + Shift + .</code> · <strong>Windows</strong> — Проводник → вкладка «Вид» → отметь «Скрытые элементы».
     </div>
   </div>
 
@@ -870,7 +804,7 @@
 
   <!-- Footer -->
   <footer>
-    <p>© 2026 MarketingOdud · Автор: <a href="https://t.me/productodud" target="_blank" rel="noopener">Евгения Одуд</a> · <a href="index.html">На главную</a></p>
+    <p>© 2026 CC Code · Авторы: <a href="https://t.me/productodud" target="_blank" rel="noopener">Евгения Одуд</a> и <a href="https://t.me/milaivy" target="_blank" rel="noopener">Мила Плющ</a> · <a href="index.html">На главную</a></p>
   </footer>
 
   <script>
